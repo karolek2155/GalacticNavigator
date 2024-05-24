@@ -1,3 +1,7 @@
+<?php
+include 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +59,7 @@
 </head>
 <body>
     <h1>Planowanie Misji</h1>
-    <form>
+    <form method="post" action="">
         <label for="mission-goal">Cel misji:</label>
         <input type="text" id="mission-goal" name="mission-goal" required>
 
