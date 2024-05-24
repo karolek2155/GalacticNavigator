@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zgłoś Kontakt z Cywilizacją - Symulator Zarządzania Zasobami w Kosmosie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zgłoś Kontakt z Cywilizacją</h1>
+    <form>
+        <label for="civilization-name">Nazwa cywilizacji:</label>
+        <input type="text" id="civilization-name" name="civilization-name" required>
+
+        <label for="civilization-policy">Polityka:</label>
+        <input type="text" id="civilization-policy" name="civilization-policy" required>
+
+        <label for="civilization-planet">Planeta:</label>
+        <input type="text" id="civilization-planet" name="civilization-planet" required>
+
+        <label for="civilization-technology">Technologia:</label>
+        <input type="text" id="civilization-technology" name="civilization-technology" required>
+
+
+        <label for="additional_info">Dodatkowe informacje:</label>
+        <input type="text" id="additional_info" name="additional_info" required>
+        <input type="submit" value="Zgłoś kontakt">
+    </form>
+</body>
+</html>
