@@ -15,32 +15,19 @@
             color: #333;
             text-align: center;
         }
-        form {
+        .button-container {
             max-width: 600px;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        input[type="submit"] {
+        .button-container button {
             width: 100%;
             padding: 10px;
+            margin-bottom: 20px;
             background-color: #333;
             color: #fff;
             border: none;
@@ -48,36 +35,29 @@
             font-size: 16px;
             cursor: pointer;
         }
-        input[type="submit"]:hover {
+        .button-container button:hover {
             background-color: #555;
         }
     </style>
 </head>
 <body>
     <h1>Exploration</h1>
-    <form>
-        <h2>Planowanie misji eksploracyjnych</h2>
-        <label for="mission-name">Nazwa misji:</label>
-        <input type="text" id="mission-name" name="mission-name" required>
-        
-        <label for="mission-location">Lokalizacja misji:</label>
-        <input type="text" id="mission-location" name="mission-location" required>
+    <div class="button-container">
+        <button onclick="planMission()">Zaplanuj misję</button>
+        <button onclick="registerMissionResults()">Zarejestruj wyniki misji</button>
+        <button onclick="reportContact()">Zgłoś kontakt z cywilizacją</button>
+    </div>
 
-        <label for="mission-crew">Załoga:</label>
-        <input type="text" id="mission-crew" name="mission-crew" required>
-
-        <label for="mission-resources">Zasoby potrzebne:</label>
-        <input type="text" id="mission-resources" name="mission-resources" required>
-
-        <label for="mission-schedule">Harmonogram:</label>
-        <input type="text" id="mission-schedule" name="mission-schedule" required>
-
-        <label for="mission-start-date">Data rozpoczęcia misji:</label>
-        <input type="date" id="mission-start-date" name="mission-start-date" required>
-
-        <label for="mission-end-date">Data zakończenia misji:</label>
-        <input type="date" id="mission-end-date" name="mission-end-date" required>
-        <input type="submit" value="Planuj misję">
-    </form>
+    <script>
+        function planMission() {
+            alert('Funkcja planowania misji');
+        }
+        function registerMissionResults() {
+            alert('Funkcja rejestracji wyników misji');
+        }
+        function reportContact() {
+            alert('Funkcja zgłaszania kontaktu z cywilizacją');
+        }
+    </script>
 </body>
 </html>
