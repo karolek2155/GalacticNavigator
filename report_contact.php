@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rejestracja Wyników Misji - Symulator Zarządzania Zasobami w Kosmosie</title>
+    <title>Zgłoś Kontakt z Cywilizacją - Symulator Zarządzania Zasobami w Kosmosie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,7 +29,6 @@
             color: #333;
         }
         input[type="text"],
-        input[type="date"],
         input[type="number"],
         select {
             width: calc(100% - 22px);
@@ -55,51 +54,41 @@
     </style>
 </head>
 <body>
-    <h1>Rejestracja Wyników Misji</h1>
-<<<<<<< HEAD
-    <form method='post' action='' >
-=======
-    <form action="register_results.php" method="POST">
->>>>>>> f51e49ee6061c5736e8e7614296ffeb2fdc5957d
-        <label for="mission_name">Nazwa misji:</label>
-        <input type="text" id="mission_name" name="mission_name" required>
+    <h1>Zgłoś Kontakt z Cywilizacją</h1>
+    <form method='post' action=''>
+        <label for="civilization_name">Nazwa cywilizacji:</label>
+        <input type="text" id="civilization_name" name="civilization_name" required>
 
-        <label for="mission_end_date">Data zakończenia misji:</label>
-        <input type="date" id="mission_end_date" name="mission_end_date" required>
+        <label for="civilization_policy">Polityka:</label>
+        <input type="text" id="civilization_policy" name="civilization_policy" required>
 
-        <label for="discoveries">Odkrycia:</label>
-        <input type="text" id="discoveries" name="discoveries" required>
+        <label for="civilization_planet">Planeta:</label>
+        <input type="text" id="civilization_planet" name="civilization_planet" required>
 
-        <label for="resources_used">Zużyte zasoby:</label>
-        <input type="text" id="resources_used" name="resources_used" required>
+        <label for="civilization_technology">Technologia:</label>
+        <input type="text" id="civilization_technology" name="civilization_technology" required>
 
-        <label for="resources_gained">Zdobyte zasoby:</label>
-        <input type="text" id="resources_gained" name="resources_gained" required>
 
-        <input type="submit" value="Zarejestruj wyniki" name="submit">
+        <label for="additional_info">Dodatkowe informacje:</label>
+        <input type="text" id="additional_info" name="additional_info" required>
+        <input type="submit" value="Zgłoś kontakt" name="submit">
     </form>
     <?php
-    $conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['submit'])) {
-<<<<<<< HEAD
-            $mission_name = $_POST['mission_name'];
-=======
-            $mission_name = $_POST['mission_name']; // Poprawione
->>>>>>> f51e49ee6061c5736e8e7614296ffeb2fdc5957d
-            $mission_end_date = $_POST['mission_end_date'];
-            $discoveries = $_POST['discoveries'];
-            $resources_used = $_POST['resources_used'];
-            $resources_gained = $_POST['resources_gained'];
+            $civilization_name = $_POST['civilization_name'];
+            $policy = $_POST['policy'];
+            $planet = $_POST['planet'];
+            $technology = $_POST['technology'];
 
+            $conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-
-            $sql = "INSERT INTO wyniki_misji (nazwa, data_zakonczenia, odkrycia, zuzyte_zasoby, zdobyte_zasoby) VALUES ('$mission_name', '$mission_end_date', '$discoveries', '$resources_used', '$resources_gained')";
+            $sql = "INSERT INTO kontakty_cywilizacyjne (cywilizacja, polityka, planeta, technologia) VALUES ('$civilization_name', '$policy', '$planet', '$technology')";
 
             if ($conn->query($sql) === TRUE) {
-                echo "<p style='color:green; text-align:center;'>Wyniki misji zostały zarejestrowane pomyślnie!</p>";
+                echo "<p style='color:green; text-align:center;'>Kontakt z cywilizacją został zarejestrowany pomyślnie!</p>";
             } else {
                 echo "<p style='color:red; text-align:center;'>Błąd: " . $sql . "<br>" . $conn->error . "</p>";
             }
