@@ -58,6 +58,8 @@
     <form method='post' action=''>
         <label for="civilization_name">Nazwa cywilizacji:</label>
         <input type="text" id="civilization_name" name="civilization_name" required>
+        <label for="mission">Misja:</label>
+        <input type="text" id="mission" name="mission" required>
 
         <label for="civilization_policy">Polityka:</label>
         <input type="text" id="civilization_policy" name="civilization_policy" required>
@@ -77,15 +79,17 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['submit'])) {
             $civilization_name = $_POST['civilization_name'];
-            $policy = $_POST['policy'];
-            $planet = $_POST['planet'];
-            $technology = $_POST['technology'];
+            $mission = $_POST['mission'];
+            $policy = $_POST['civilization_policy'];
+            $planet = $_POST['civilization_planet'];
+            $technology = $_POST['civilization_technology'];
+            $info = $_POST['additional_info'];
 
             $conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "INSERT INTO kontakty_cywilizacyjne (cywilizacja, polityka, planeta, technologia) VALUES ('$civilization_name', '$policy', '$planet', '$technology')";
+            $sql = "INSERT INTO kontakty_cywilizacyjne (cywilizacja, misja, polityka, planeta, technologia, informacje_dodatkowe) VALUES ('$civilization_name', '$mission', '$policy', '$planet', '$technology', '$info')";
 
             if ($conn->query($sql) === TRUE) {
                 echo "<p style='color:green; text-align:center;'>Kontakt z cywilizacją został zarejestrowany pomyślnie!</p>";

@@ -56,11 +56,7 @@
 </head>
 <body>
     <h1>Rejestracja Wyników Misji</h1>
-<<<<<<< HEAD
     <form method='post' action='' >
-=======
-    <form action="register_results.php" method="POST">
->>>>>>> f51e49ee6061c5736e8e7614296ffeb2fdc5957d
         <label for="mission_name">Nazwa misji:</label>
         <input type="text" id="mission_name" name="mission_name" required>
 
@@ -82,11 +78,7 @@
     $conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['submit'])) {
-<<<<<<< HEAD
             $mission_name = $_POST['mission_name'];
-=======
-            $mission_name = $_POST['mission_name']; // Poprawione
->>>>>>> f51e49ee6061c5736e8e7614296ffeb2fdc5957d
             $mission_end_date = $_POST['mission_end_date'];
             $discoveries = $_POST['discoveries'];
             $resources_used = $_POST['resources_used'];
