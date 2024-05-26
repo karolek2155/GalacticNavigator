@@ -3,11 +3,11 @@ require 'config.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Resource</title>
+    <title>Edytuj Zasób</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,8 +33,7 @@ require 'config.php';
             color: #333;
         }
         input[type="text"],
-        input[type="number"],
-        select {
+        input[type="number"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 20px;
@@ -58,36 +57,36 @@ require 'config.php';
     </style>
 </head>
 <body>
-    <h1>Edit Resource</h1>
+    <h1>Edytuj Zasób</h1>
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
         $id = $_POST['id'];
-        $sql = "SELECT * FROM resources WHERE id = :id";
+        $sql = "SELECT * FROM zasoby WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
-        $resource = $stmt->fetch();
+        $zasob = $stmt->fetch();
     ?>
     <form action="edit_resource.php" method="post">
-        <label for="resource-name">Resource Name:</label>
-        <input type="text" id="resource-name" name="resource-name" value="<?php echo $resource['name']; ?>" required>
+        <label for="resource-name">Nazwa Zasobu:</label>
+        <input type="text" id="resource-name" name="resource-name" value="<?php echo $zasob['nazwa']; ?>" required>
         
-        <label for="resource-quantity">Quantity:</label>
-        <input type="number" id="resource-quantity" name="resource-quantity" value="<?php echo $resource['quantity']; ?>" required>
+        <label for="resource-quantity">Ilość:</label>
+        <input type="number" id="resource-quantity" name="resource-quantity" value="<?php echo $zasob['ilosc']; ?>" required>
 
-        <input type="hidden" name="id" value="<?php echo $resource['id']; ?>">
-        <input type="submit" name="update" value="Update Resource">
+        <input type="hidden" name="id" value="<?php echo $zasob['id']; ?>">
+        <input type="submit" name="update" value="Aktualizuj Zasób">
     </form>
     <?php
     } elseif (isset($_POST['update'])) {
         $id = $_POST['id'];
-        $name = $_POST['resource-name'];
-        $quantity = $_POST['resource-quantity'];
+        $nazwa = $_POST['resource-name'];
+        $ilosc = $_POST['resource-quantity'];
 
-        $sql = "UPDATE zasoby SET nazwa = :name, ilosc = :quantity WHERE id = :id";
+        $sql = "UPDATE zasoby SET nazwa = :nazwa, ilosc = :ilosc WHERE id = :id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['nazwa' => $name, 'ilosc' => $quantity, 'id' => $id]);
+        $stmt->execute(['nazwa' => $nazwa, 'ilosc' => $ilosc, 'id' => $id]);
 
-        echo "<p>Resource updated successfully!</p>";
+        echo "<p>Zasób został zaktualizowany pomyślnie!</p>";
     }
     ?>
 </body>

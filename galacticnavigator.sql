@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 24, 2024 at 05:48 PM
+-- Generation Time: Maj 24, 2024 at 09:31 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -120,6 +120,27 @@ CREATE TABLE `wyniki_misji` (
   `notatki` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `zasoby`
+--
+
+CREATE TABLE `zasoby` (
+  `id` int(11) NOT NULL,
+  `nazwa` varchar(255) NOT NULL,
+  `ilosc` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `zasoby`
+--
+
+INSERT INTO `zasoby` (`id`, `nazwa`, `ilosc`) VALUES
+(2, 'Woda', 4),
+(3, 'Paliwo', 6),
+(4, 'Puszki', 3);
+
 --
 -- Indeksy dla zrzutów tabel
 --
@@ -171,6 +192,12 @@ ALTER TABLE `wyniki_misji`
   ADD KEY `misja_id` (`misja_id`);
 
 --
+-- Indeksy dla tabeli `zasoby`
+--
+ALTER TABLE `zasoby`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -209,6 +236,12 @@ ALTER TABLE `projekty`
 --
 ALTER TABLE `wyniki_misji`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `zasoby`
+--
+ALTER TABLE `zasoby`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

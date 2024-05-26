@@ -1,43 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Management</title>
+    <title>Resource Management - Symulator Zarządzania Zasobami w Kosmosie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
         }
         h1 {
+            text-align: center;
             color: #333;
-            text-align: center;
+            margin-bottom: 20px;
         }
-        .menu {
-            text-align: center;
-            margin: 20px 0;
+        .top-container, .bottom-container {
+            display: flex;
+            gap: 20px;
         }
-        .menu a {
-            margin: 0 10px;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
+        .top-container {
+            flex: 0 1 50%; /* Flexible height with a maximum of 50% */
         }
-        .menu a:hover {
-            background-color: #555;
+        .bottom-container {
+            flex: 1; /* Fills the remaining space */
+        }
+        .iframe-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex: 1;
+            background-color: #fff;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .top-container {
+                flex-direction: column;
+                max-height: none;
+            }
+            .bottom-container {
+                flex: none;
+                height: 300px;
+            }
+        }
+        @media (min-width: 769px) {
+            .top-container {
+                flex-direction: row;
+            }
+            .bottom-container {
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Resource Management</h1>
-    <div class="menu">
-        <a href="resource/add_resource.php">Add Resource</a>
-        <a href="resource/view_resources.php">View Resources</a>
-        <a href="resource/view_charts.php">View Charts</a>
+    <h1>Zarządzanie zasobami</h1>
+    <div class="top-container">
+        <div class="iframe-container">
+            <iframe src="resource/add_resource.php" title="Dodaj Zasób"></iframe>
+        </div>
+        <div class="iframe-container">
+            <iframe src="resource/view_resources.php" title="Wyświetl Zasoby"></iframe>
+        </div>
+    </div>
+    <div class="bottom-container iframe-container">
+        <iframe src="resource/view_charts.php" title="Zobacz Dane"></iframe>
     </div>
 </body>
 </html>
