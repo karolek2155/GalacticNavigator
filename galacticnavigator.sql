@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 24, 2024 at 09:31 PM
+-- Generation Time: Maj 26, 2024 at 07:22 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -52,6 +52,18 @@ CREATE TABLE `misje` (
   `data_startu` date DEFAULT NULL,
   `data_zakonczenia` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `misje`
+--
+
+INSERT INTO `misje` (`id`, `cel`, `zaloga`, `zasoby`, `data_startu`, `data_zakonczenia`) VALUES
+(1, '', '', '', '0000-00-00', '0000-00-00'),
+(2, '', '', '', '0000-00-00', '0000-00-00'),
+(3, '', '', '', '0000-00-00', '0000-00-00'),
+(4, '', '', '', '0000-00-00', '0000-00-00'),
+(5, '5', '5', '5', '2024-05-04', '2024-05-10'),
+(6, '5', '5', '5', '2024-05-04', '2024-05-10');
 
 -- --------------------------------------------------------
 
@@ -116,8 +128,9 @@ CREATE TABLE `wyniki_misji` (
   `id` int(11) NOT NULL,
   `misja_id` int(11) DEFAULT NULL,
   `odkrycia` text DEFAULT NULL,
-  `zdjecia` text DEFAULT NULL,
-  `notatki` text DEFAULT NULL
+  `notatki` text DEFAULT NULL,
+  `nazwa` text DEFAULT NULL,
+  `data_zakonczenia` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -131,15 +144,6 @@ CREATE TABLE `zasoby` (
   `nazwa` varchar(255) NOT NULL,
   `ilosc` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `zasoby`
---
-
-INSERT INTO `zasoby` (`id`, `nazwa`, `ilosc`) VALUES
-(2, 'Woda', 4),
-(3, 'Paliwo', 6),
-(4, 'Puszki', 3);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -211,7 +215,7 @@ ALTER TABLE `kontakty_cywilizacyjne`
 -- AUTO_INCREMENT for table `misje`
 --
 ALTER TABLE `misje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `naukowcy`
@@ -241,7 +245,7 @@ ALTER TABLE `wyniki_misji`
 -- AUTO_INCREMENT for table `zasoby`
 --
 ALTER TABLE `zasoby`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
