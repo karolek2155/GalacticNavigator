@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute(['id' => $id]);
 
     echo "<p>Zasób został usunięty pomyślnie!</p>";
-    echo "<a href='view_resources.php'>Powrót do zasobów</a>";
+    header("Location: view_resources.php");
+    exit; // Upewnij się, że żadne inne dane nie są wysyłane po przekierowaniu
 }
 ?>

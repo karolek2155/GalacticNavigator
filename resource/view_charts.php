@@ -1,7 +1,6 @@
 <?php
 require 'config.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -13,43 +12,101 @@ require 'config.php';
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .content {
+            width: 80%;
         }
         h1 {
             color: #333;
             text-align: center;
         }
+        .charts-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
         .chart-container {
-            width: 80%;
-            margin: 0 auto;
+            width: 45%;
         }
     </style>
 </head>
 <body>
-    <h1>Wykresy Zasobów</h1>
-    <div class="chart-container">
-        <canvas id="resourceChart"></canvas>
+    <div class="content">
+        <h1>Wykresy Zasobów</h1>
+        <div class="charts-container">
+            <div class="chart-container">
+                <canvas id="resourceChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="resourceChartChanges"></canvas>
+            </div>
+        </div>
     </div>
 
     <?php
-    $sql = "SELECT nazwa, ilosc FROM zasoby";
-    $stmt = $pdo->query($sql);
-    $zasoby = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Pobierz dane zasobów
+    $sql_quantity = "SELECT nazwa, ilosc FROM zasoby";
+    $stmt_quantity = $pdo->query($sql_quantity);
+    $zasoby = $stmt_quantity->fetchAll(PDO::FETCH_ASSOC);
 
+    // Pobierz dane zmian zasobów
+    $sql_changes = "SELECT z.nazwa, zc.data, zc.nowa_ilosc FROM zasoby z JOIN zmiany_zasobow zc ON z.id = zc.id_zasobu ORDER BY zc.data";
+    $stmt_changes = $pdo->query($sql_changes);
+    $changes = $stmt_changes->fetchAll(PDO::FETCH_ASSOC);
+
+    // Przygotuj dane dla wykresu ilości zasobów
     $nazwy = array_column($zasoby, 'nazwa');
     $ilosci = array_column($zasoby, 'ilosc');
+
+    // Przygotuj dane dla wykresu zmian zasobów
+    $dates = [];
+    $data = [];
+
+    foreach ($changes as $change) {
+        $dates[] = $change['data'];
+        $data[] = $change['nowa_ilosc'];
+    }
     ?>
 
     <script>
-        const ctx = document.getElementById('resourceChart').getContext('2d');
-        const resourceChart = new Chart(ctx, {
+        // Wykres ilości zasobów
+        const ctx_quantity = document.getElementById('resourceChart').getContext('2d');
+        const resourceChart = new Chart(ctx_quantity, {
             type: 'bar',
             data: {
                 labels: <?php echo json_encode($nazwy); ?>,
                 datasets: [{
                     label: 'Ilość Zasobów',
                     data: <?php echo json_encode($ilosci); ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Wykres zmian zasobów
+        const ctx_changes = document.getElementById('resourceChartChanges').getContext('2d');
+        const resourceChartChanges = new Chart(ctx_changes, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($dates); ?>,
+                datasets: [{
+                    label: 'Ilość Zasobów',
+                    data: <?php echo json_encode($data); ?>,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
