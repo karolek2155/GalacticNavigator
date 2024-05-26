@@ -56,7 +56,7 @@ require 'config.php';
     $zasoby = $stmt_quantity->fetchAll(PDO::FETCH_ASSOC);
 
     // Pobierz dane zmian zasobów
-    $sql_changes = "SELECT z.nazwa, zc.data, zc.nowa_ilosc FROM zasoby z JOIN zmiany_zasobow zc ON z.id = zc.id_zasobu ORDER BY zc.data";
+    $sql_changes = "SELECT z.nazwa AS nazwa_zasobu, zc.data, zc.nowa_ilosc FROM zasoby z JOIN zmiany_zasobow zc ON z.id = zc.id_zasobu ORDER BY zc.data";
     $stmt_changes = $pdo->query($sql_changes);
     $changes = $stmt_changes->fetchAll(PDO::FETCH_ASSOC);
 
@@ -65,12 +65,13 @@ require 'config.php';
     $ilosci = array_column($zasoby, 'ilosc');
 
     // Przygotuj dane dla wykresu zmian zasobów
-    $dates = [];
-    $data = [];
+    $data_changes = [];
 
     foreach ($changes as $change) {
-        $dates[] = $change['data'];
-        $data[] = $change['nowa_ilosc'];
+        if (!isset($data_changes[$change['nazwa_zasobu']])) {
+            $data_changes[$change['nazwa_zasobu']] = [];
+        }
+        $data_changes[$change['nazwa_zasobu']][] = $change['nowa_ilosc'];
     }
     ?>
 
@@ -103,19 +104,22 @@ require 'config.php';
         const resourceChartChanges = new Chart(ctx_changes, {
             type: 'line',
             data: {
-                labels: <?php echo json_encode($dates); ?>,
-                datasets: [{
-                    label: 'Ilość Zasobów',
-                    data: <?php echo json_encode($data); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
+                labels: <?php echo json_encode(array_keys($data_changes)); ?>,
+                datasets: [
+                    <?php foreach ($data_changes as $resource => $data_change): ?>
+                        {
+                            label: '<?php echo $resource; ?>',
+                            data: <?php echo json_encode($data_change); ?>,
+                            borderColor: 'rgba(<?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, 1)',
+                            fill: false
+                        },
+                    <?php endforeach; ?>
+                ]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: false
                     }
                 }
             }
