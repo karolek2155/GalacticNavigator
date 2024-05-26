@@ -1,4 +1,4 @@
 <?php
-mysqli_connect('localhost', 'root', '', 'galacticnavigator');
+$conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
 
 ?>
