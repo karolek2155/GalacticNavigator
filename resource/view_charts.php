@@ -8,6 +8,8 @@ require 'config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wyświetl Wykresy</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/adapters/moment.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,8 +73,11 @@ require 'config.php';
         if (!isset($data_changes[$change['nazwa_zasobu']])) {
             $data_changes[$change['nazwa_zasobu']] = [];
         }
-        $data_changes[$change['nazwa_zasobu']][] = $change['nowa_ilosc'];
+        $data_changes[$change['nazwa_zasobu']][] = ['x' => $change['data'], 'y' => $change['nowa_ilosc']];
     }
+
+    // Przygotuj dane dla osi X wykresu zmian zasobów (daty zmian)
+    $dates = array_column($changes, 'data');
     ?>
 
     <script>
@@ -83,10 +88,9 @@ require 'config.php';
             data: {
                 labels: <?php echo json_encode($nazwy); ?>,
                 datasets: [{
-                    label: 'Ilość Zasobów',
                     data: <?php echo json_encode($ilosci); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(<?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, 0.2)',
+                    borderColor: 'rgba(<?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, 1)',
                     borderWidth: 1
                 }]
             },
@@ -94,6 +98,11 @@ require 'config.php';
                 scales: {
                     y: {
                         beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
@@ -104,22 +113,59 @@ require 'config.php';
         const resourceChartChanges = new Chart(ctx_changes, {
             type: 'line',
             data: {
-                labels: <?php echo json_encode(array_keys($data_changes)); ?>,
+                labels: <?php echo json_encode($dates); ?>,
                 datasets: [
-                    <?php foreach ($data_changes as $resource => $data_change): ?>
-                        {
-                            label: '<?php echo $resource; ?>',
-                            data: <?php echo json_encode($data_change); ?>,
-                            borderColor: 'rgba(<?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, 1)',
-                            fill: false
-                        },
+                    <?php foreach ($data_changes as $nazwa_zasobu => $data): ?>
+                    {
+                        label: '<?php echo $nazwa_zasobu; ?>',
+                        data: <?php echo json_encode($data); ?>,
+                        backgroundColor: 'rgba(<?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, 0.2)',
+                        borderColor: 'rgba(<?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, <?php echo rand(0, 255); ?>, 1)',
+                        borderWidth: 1
+                    },
                     <?php endforeach; ?>
-                ]
+                    ]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: false
+                        beginAtZero: true
+                    },
+                    x: {
+                        title: {
+                            display: false // Usuń tytuł osi X
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            generateLabels: function(chart) {
+                                const datasets = chart.data.datasets;
+                                return datasets.map(function(dataset, i) {
+                                    return {
+                                        text: dataset.label,
+                                        fillStyle: dataset.backgroundColor,
+                                        strokeStyle: dataset.borderColor,
+                                        lineWidth: dataset.borderWidth,
+                                        hidden: chart.isDatasetVisible(i),
+                                        lineCap: dataset.borderCapStyle,
+                                        lineDash: dataset.borderDash,
+                                        lineDashOffset: dataset.borderDashOffset,
+                                        lineJoin: dataset.borderJoinStyle,
+                                        lineWidth: dataset.borderWidth,
+                                        pointStyle: dataset.pointStyle,
+                                        rotation: dataset.labelRotation,
+                                        fontColor: dataset.fontColor,
+                                        fontFamily: dataset.fontFamily,
+                                        fontSize: dataset.fontSize,
+                                        fontStyle: dataset.fontStyle,
+                                        padding: dataset.padding,
+                                        sampleSize: 100
+                                    };
+                                });
+                            }
+                        }
                     }
                 }
             }
