@@ -58,6 +58,10 @@
 <body>
     <h1>Planowanie Misji</h1>
     <form method="post" action="plan_mission.php">
+
+    <label for="mission_name">Nazwa misji:</label>
+        <input type="text" id="mission_name" name="mission_name" required>
+
         <label for="mission_goal">Cel misji:</label>
         <input type="text" id="mission_goal" name="mission_goal" required>
 
@@ -80,6 +84,7 @@
 
      if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['submit'])) {
+        $mission_name = $_POST['mission_name'];
         $mission_goal = $_POST['mission_goal'];
         $mission_crew = $_POST['mission_crew'];
         $mission_resources = $_POST['mission_resources'];
@@ -89,7 +94,7 @@
             die("Connection failed: " . $conn->connect_error);
         }
     
-        $sql = "INSERT INTO misje (cel, zaloga, zasoby, data_startu, data_zakonczenia) VALUES ('$mission_goal', '$mission_crew', '$mission_resources', '$mission_start_date', '$mission_end_date')";
+        $sql = "INSERT INTO misje (nazwa, cel, zaloga, zasoby, data_startu, data_zakonczenia) VALUES ('$mission_name', '$mission_goal', '$mission_crew', '$mission_resources', '$mission_start_date', '$mission_end_date')";
     
         if ($conn->query($sql) === TRUE) {
             echo "<p style='color:green; text-align:center;'>Nowa misja została zaplanowana pomyślnie!</p>";
