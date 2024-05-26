@@ -77,16 +77,32 @@ require 'config.php';
         <input type="submit" name="update" value="Aktualizuj Zasób">
     </form>
     <?php
-    } elseif (isset($_POST['update'])) {
+     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         $id = $_POST['id'];
         $nazwa = $_POST['resource-name'];
         $ilosc = $_POST['resource-quantity'];
-
-        $sql = "UPDATE zasoby SET nazwa = :nazwa, ilosc = :ilosc WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['nazwa' => $nazwa, 'ilosc' => $ilosc, 'id' => $id]);
-
-        echo "<p>Zasób został zaktualizowany pomyślnie!</p>";
+    
+        // Pobierz obecną ilość zasobu przed aktualizacją
+        $sql_old_quantity = "SELECT ilosc FROM zasoby WHERE id = :id";
+        $stmt_old_quantity = $pdo->prepare($sql_old_quantity);
+        $stmt_old_quantity->execute(['id' => $id]);
+        $old_quantity = $stmt_old_quantity->fetchColumn();
+    
+        // Aktualizuj zasób
+        $sql_update = "UPDATE zasoby SET nazwa = :nazwa, ilosc = :ilosc WHERE id = :id";
+        $stmt_update = $pdo->prepare($sql_update);
+        $stmt_update->execute(['nazwa' => $nazwa, 'ilosc' => $ilosc, 'id' => $id]);
+    
+        // Dodaj wpis do tabeli zmiany_zasobow
+        $sql_insert_change = "INSERT INTO zmiany_zasobow (id_zasobu, stara_ilosc, nowa_ilosc) VALUES (:id_zasobu, :stara_ilosc, :nowa_ilosc)";
+        $stmt_insert_change = $pdo->prepare($sql_insert_change);
+        $stmt_insert_change->execute(['id_zasobu' => $id, 'stara_ilosc' => $old_quantity, 'nowa_ilosc' => $ilosc]);
+    
+        // Przekieruj użytkownika na stronę zasobów
+        header("Location: view_resources.php");
+        exit;
+    }
+     
     }
     ?>
 </body>

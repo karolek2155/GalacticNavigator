@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 26, 2024 at 07:22 PM
+-- Generation Time: Maj 26, 2024 at 08:47 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `kontakty_cywilizacyjne` (
   `id` int(11) NOT NULL,
-  `misja_id` int(11) DEFAULT NULL,
   `cywilizacja` varchar(255) DEFAULT NULL,
   `kultura` text DEFAULT NULL,
   `technologia` text DEFAULT NULL,
@@ -63,7 +62,8 @@ INSERT INTO `misje` (`id`, `cel`, `zaloga`, `zasoby`, `data_startu`, `data_zakon
 (3, '', '', '', '0000-00-00', '0000-00-00'),
 (4, '', '', '', '0000-00-00', '0000-00-00'),
 (5, '5', '5', '5', '2024-05-04', '2024-05-10'),
-(6, '5', '5', '5', '2024-05-04', '2024-05-10');
+(6, '5', '5', '5', '2024-05-04', '2024-05-10'),
+(7, 'Mars', '1', 'woda, puszki', '2008-09-04', '2021-12-03');
 
 -- --------------------------------------------------------
 
@@ -128,10 +128,18 @@ CREATE TABLE `wyniki_misji` (
   `id` int(11) NOT NULL,
   `misja_id` int(11) DEFAULT NULL,
   `odkrycia` text DEFAULT NULL,
-  `notatki` text DEFAULT NULL,
+  `zuzyte_zasoby` text DEFAULT NULL,
   `nazwa` text DEFAULT NULL,
-  `data_zakonczenia` date DEFAULT NULL
+  `data_zakonczenia` date DEFAULT NULL,
+  `zdobyte_zasoby` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wyniki_misji`
+--
+
+INSERT INTO `wyniki_misji` (`id`, `misja_id`, `odkrycia`, `zuzyte_zasoby`, `nazwa`, `data_zakonczenia`, `zdobyte_zasoby`) VALUES
+(1, NULL, 'zloza zelaza', 'woda, jedzenia', 'Mars', '2111-03-09', 'mineraly');
 
 -- --------------------------------------------------------
 
@@ -146,6 +154,37 @@ CREATE TABLE `zasoby` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `zasoby`
+--
+
+INSERT INTO `zasoby` (`id`, `nazwa`, `ilosc`) VALUES
+(3, 'Puszki', 4),
+(4, 'Paliwo', 5),
+(7, 'woda', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `zmiany_zasobow`
+--
+
+CREATE TABLE `zmiany_zasobow` (
+  `id` int(11) NOT NULL,
+  `id_zasobu` int(11) DEFAULT NULL,
+  `data` timestamp NOT NULL DEFAULT current_timestamp(),
+  `stara_ilosc` int(11) DEFAULT NULL,
+  `nowa_ilosc` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `zmiany_zasobow`
+--
+
+INSERT INTO `zmiany_zasobow` (`id`, `id_zasobu`, `data`, `stara_ilosc`, `nowa_ilosc`) VALUES
+(1, 3, '2024-05-26 18:37:24', 3, 4),
+(2, 4, '2024-05-26 18:37:28', 4, 5);
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -153,8 +192,7 @@ CREATE TABLE `zasoby` (
 -- Indeksy dla tabeli `kontakty_cywilizacyjne`
 --
 ALTER TABLE `kontakty_cywilizacyjne`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `misja_id` (`misja_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `misje`
@@ -202,6 +240,12 @@ ALTER TABLE `zasoby`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeksy dla tabeli `zmiany_zasobow`
+--
+ALTER TABLE `zmiany_zasobow`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -215,7 +259,7 @@ ALTER TABLE `kontakty_cywilizacyjne`
 -- AUTO_INCREMENT for table `misje`
 --
 ALTER TABLE `misje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `naukowcy`
@@ -239,23 +283,23 @@ ALTER TABLE `projekty`
 -- AUTO_INCREMENT for table `wyniki_misji`
 --
 ALTER TABLE `wyniki_misji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `zasoby`
 --
 ALTER TABLE `zasoby`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `zmiany_zasobow`
+--
+ALTER TABLE `zmiany_zasobow`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `kontakty_cywilizacyjne`
---
-ALTER TABLE `kontakty_cywilizacyjne`
-  ADD CONSTRAINT `kontakty_cywilizacyjne_ibfk_1` FOREIGN KEY (`misja_id`) REFERENCES `misje` (`id`);
 
 --
 -- Constraints for table `postepy_projektow`
