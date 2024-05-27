@@ -1,3 +1,7 @@
+<?php
+require 'resource/config.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +54,31 @@
             bottom: 0;
             width: 100%;
         }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 70%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            margin: 20px 15%
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        td {
+            background-color: #fff;
+        }
+       
     </style>
 </head>
 <body>
@@ -64,26 +93,37 @@
         <a href="scientific-research.html">Badania naukowe</a>
         <a href="interstellar-relations.html">Relacje międzygwiezdne</a>
     </nav>
+    
+        
+    <h2>Nadchodzące misje</h2>
+    <table>
+        <tr>
+            <th>Tytuł misji</th>
+            <th>Cel</th>
+            <th>Data startu</th>
+            <th>Załoga</th>
+            <th>Grafika</th>
+        </tr>
+        <?php
+        $sql = "SELECT * FROM misje WHERE grafika IS NOT NULL";
+        $stmt = $pdo->query($sql);
+        $misje = $stmt->fetchAll();
 
-    <section id="exploration">
-        <h2>Eksploracja</h2>
-        <p>Planowanie misji eksploracyjnych, rejestrowanie wyników misji i kontakt z nowymi cywilizacjami.</p>
-    </section>
-
-    <section id="resource-management">
-        <h2>Zarządzanie zasobami</h2>
-        <p>Dodawanie, edytowanie i usuwanie zasobów, monitorowanie stanu zasobów i zarządzanie produkcją.</p>
-    </section>
-
-    <section id="scientific-research">
-        <h2>Badania naukowe</h2>
-        <p>Tworzenie, edytowanie i usuwanie projektów badawczych, monitorowanie postępów badań.</p>
-    </section>
-
-    <section id="interstellar-relations">
-        <h2>Relacje międzygwiezdne</h2>
-        <p>Rejestracja kontaktów z innymi cywilizacjami, zarządzanie dyplomacją i monitorowanie relacji.</p>
-    </section>
+        foreach ($misje as $misja) {
+            $grafika = $misja['grafika'];
+            echo "<tr>";
+            echo "<td>{$misja['nazwa']}</td>";
+            echo "<td>{$misja['cel']}</td>";
+            echo "<td>{$misja['data_startu']}</td>";
+            echo "<td>{$misja['zaloga']}</td>";
+            echo "<td><img src='img/$grafika' width = 200px></td>";
+           
+                
+            echo "</tr>";
+        }
+        ?>
+    </table>
+   
 
     <footer>
         <p>&copy; 2024 Galactic Navigator</p>

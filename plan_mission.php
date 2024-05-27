@@ -77,6 +77,9 @@
         <label for="mission_end_date">Data zakończenia:</label>
         <input type="date" id="mission_end_date" name="mission_end_date" required>
 
+        <label for="image">Dodaj grafikę (opcjonalne):</label>
+        <input type="text" id="image" name="image">
+
         <input type="submit" value="Zaplanuj misję" name="submit">
     </form>
     <?php
@@ -90,11 +93,12 @@
         $mission_resources = $_POST['mission_resources'];
         $mission_start_date = $_POST['mission_start_date'];
         $mission_end_date = $_POST['mission_end_date'];
+        $image = $_POST['image'];
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
     
-        $sql = "INSERT INTO misje (nazwa, cel, zaloga, zasoby, data_startu, data_zakonczenia) VALUES ('$mission_name', '$mission_goal', '$mission_crew', '$mission_resources', '$mission_start_date', '$mission_end_date')";
+        $sql = "INSERT INTO misje (nazwa, cel, zaloga, zasoby, data_startu, data_zakonczenia, grafika) VALUES ('$mission_name', '$mission_goal', '$mission_crew', '$mission_resources', '$mission_start_date', '$mission_end_date', '$image')";
     
         if ($conn->query($sql) === TRUE) {
             echo "<p style='color:green; text-align:center;'>Nowa misja została zaplanowana pomyślnie!</p>";
