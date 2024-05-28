@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require '../config.php';
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@ require 'config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dodaj Zasób</title>
+    <title>Zarządzanie Zasobami</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,7 +57,7 @@ require 'config.php';
     </style>
 </head>
 <body>
-    <h1>Dodaj Zasób</h1>
+    <h1>Zarządzanie Zasobami</h1>
     <form action="add_resource.php" method="post">
         <label for="resource-name">Nazwa Zasobu:</label>
         <input type="text" id="resource-name" name="resource-name" required>

@@ -1,5 +1,5 @@
 <?php
-require 'resource/config.php';
+require 'config.php';
 
 ?>
 <!DOCTYPE html>
