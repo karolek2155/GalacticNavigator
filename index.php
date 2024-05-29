@@ -69,7 +69,7 @@ require 'config.php';
         }
         th, td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #333;
@@ -84,7 +84,7 @@ require 'config.php';
 <body>
     <header>
         <h1>Galactic Navigator</h1>
-        <p>Aplikacja do zarządzania koloniami kosmicznymi</p>
+        <p>Aplikacja do zarządzania zasobami w kosmosie</p>
     </header>
 
     <nav>

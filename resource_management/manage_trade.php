@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            height: 20px;
             background-color: #f2f2f2;
         }
         h1 {
