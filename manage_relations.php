@@ -1,7 +1,4 @@
-<?php
-require 'resource/config.php';
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +40,8 @@ require 'resource/config.php';
             color: #333;
         }
         p {
-            color: #666;
+            color: white;
+            
         }
         footer {
             background-color: #333;
@@ -78,51 +76,63 @@ require 'resource/config.php';
         td {
             background-color: #fff;
         }
+        h1 {
+            
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
        
     </style>
 </head>
 <body>
     <header>
         <h1>Galactic Navigator</h1>
-        <p>Aplikacja do zarządzania koloniami kosmicznymi</p>
+        <p>Relacje międzygwiezdne</p>
     </header>
 
     <nav>
-        <a href="exploration.html">Eksploracja</a>
-        <a href="resource-management.html">Zarządzanie zasobami</a>
-        <a href="scientific-research.html">Badania naukowe</a>
-        <a href="report_contact.php">Relacje międzygwiezdne</a>
-    </nav>
-    
+        <a href="report_contact.php">Zarejestruj kontakt z cywilizacją</a>
+        <a href="manage_relations.php">Zarządzanie relacjami cywilizacyjnymi</a>
         
-    <h2>Nadchodzące misje</h2>
-    <table>
-        <tr>
-            <th>Tytuł misji</th>
-            <th>Cel</th>
-            <th>Data startu</th>
-            <th>Załoga</th>
-            <th>Grafika</th>
-        </tr>
-        <?php
-        $sql = "SELECT * FROM misje WHERE grafika IS NOT NULL";
-        $stmt = $pdo->query($sql);
-        $misje = $stmt->fetchAll();
-
-        foreach ($misje as $misja) {
-            $grafika = $misja['grafika'];
-            echo "<tr>";
-            echo "<td>{$misja['nazwa']}</td>";
-            echo "<td>{$misja['cel']}</td>";
-            echo "<td>{$misja['data_startu']}</td>";
-            echo "<td>{$misja['zaloga']}</td>";
-            echo "<td><img src='img/$grafika' width = 200px></td>";
-           
-                
-            echo "</tr>";
-        }
-        ?>
-    </table>
+    </nav>
+   
+        
+    
    
 
     <footer>
@@ -130,3 +140,4 @@ require 'resource/config.php';
     </footer>
 </body>
 </html>
+
