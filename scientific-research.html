@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,66 +8,115 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
         }
-        h1 {
-            color: #333;
+        .menu-container {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+        .menu {
+            display: flex;
+        }
+        .menu a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 16px;
             text-align: center;
+            border-right: 1px solid #555;
         }
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
+        .menu a:last-child {
+            border-right: none;
+        }
+        .button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .iframe-container {
+            border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            flex: 1;
+            box-sizing: border-box;
         }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        input[type="submit"] {
+        iframe {
             width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
+            height: 100%;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
         }
-        input[type="submit"]:hover {
-            background-color: #555;
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            box-sizing: border-box;
+        }
+        .top-iframes {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            height: 70%;
+            box-sizing: border-box;
+        }
+        .bottom-iframe {
+            display: flex;
+            height: auto;
+            box-sizing: border-box;
+        }
+        @media (max-width: 767px) {
+            .top-iframes {
+                flex-direction: column;
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Scientific Research</h1>
-    <form>
-        <h2>Add Research Project</h2>
-        <a href="index.html" style="position: absolute; top: 20px; right: 20px; color: #333; text-decoration: none;">Strona Główna</a>
-        <label for="project-name">Project Name:</label>
-        <input type="text" id="project-name" name="project-name" required>
-        
-        <label for="project-description">Description:</label>
-        <textarea id="project-description" name="project-description" rows="4" required></textarea>
-
-        <label for="project-resources">Required Resources:</label>
-        <input type="text" id="project-resources" name="project-resources" required>
-
-        <input type="submit" value="Add Project">
-    </form>
+    <div class="menu-container">
+        <div class="menu">
+            <a href="#" onclick="loadResource('add_project.html');loadTable('view_project.php')">Informacje o projekcie badawczym</a>
+            <a href="#" onclick="loadResource('assign_scientists_resources.php')">Przypisanie naukowców i zasobów</a>
+            <a href="#" onclick="loadResource('monitor_progress.php')">Monitorowanie postępów i dokumentacja wyników</a>
+        </div>
+        <a href="index.php" class="button">Strona Główna</a>
+    </div>
+    <div class="content">
+        <div class="top-iframes">
+            <div class="iframe-container">
+                <iframe id="form" src="scientific_research/form/add_project.html" title="Dodaj projekt badawczy"></iframe>
+            </div>
+            <div class="iframe-container">
+                <iframe id="table" src="scientific_research/table/view_project.php" title="Wyświetl Zasoby"></iframe>
+            </div>
+        </div>
+        <div class="iframe-container bottom-iframe">
+            <iframe id="charts" src="scientific_research/dashboard.php" title="Wyświetl badania"></iframe>
+        </div>
+    </div>
+    <script>
+        function loadResource(resource) {
+            document.getElementById('form').src = 'scientific_research/form/' + resource;
+        }
+        function loadTable(resource) {
+            document.getElementById('table').src = 'scientific_research/table/' + resource;
+        }
+    </script>
 </body>
 </html>
