@@ -1,6 +1,7 @@
 <?php
 require '../config.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -36,6 +37,17 @@ require '../config.php';
         .chart-container {
             width: 45%;
         }
+        .download-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+         
     </style>
 </head>
 <body>
@@ -44,12 +56,13 @@ require '../config.php';
         <div class="charts-container">
             <div class="chart-container">
                 <canvas id="resourceChart"></canvas>
+                <button class="download-button" onclick="downloadChart('resourceChart', 'zasoby.png')">Pobierz Wykres Zasobów</button>
             </div>
             <div class="chart-container">
                 <canvas id="resourceChartChanges"></canvas>
+                <button class="download-button" onclick="downloadChart('resourceChartChanges', 'zmiany_zasobow.png')">Pobierz Wykres Zmian Zasobów</button>
             </div>
-        </div>
-    </div>
+    
 
     <?php
     // Pobierz dane zasobów
@@ -152,6 +165,25 @@ require '../config.php';
                 }
             }
         });
+
+        // Funkcja do pobierania wykresu jako obrazu
+function downloadChart(chartId, filename) {
+    const canvas = document.getElementById(chartId);
+    
+    // Utwórz obiekt Blob
+    canvas.toBlob(function(blob) {
+        const url = window.URL.createObjectURL(blob);
+
+        // Utwórz link i kliknij go
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = url;
+        link.click();
+
+        // Zwolnij zasoby
+        window.URL.revokeObjectURL(url);
+    });
+}
     </script>
 </body>
 </html>

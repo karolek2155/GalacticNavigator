@@ -5,12 +5,13 @@ require '../../config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $projekt_id = $_POST['projekt_id'];
     $postep = $_POST['postep'];
+    $postep_nowy = $_POST['postep_nowy'];
     $wyniki = $_POST['wyniki'];
 
     // Tworzymy zapytanie SQL do dodania nowego wpisu monitorowania
-    $sql = "INSERT INTO monitorowanie (projekt_id, postep, wyniki) VALUES (:projekt_id, :postep, :wyniki)";
+    $sql = "INSERT INTO monitorowanie (projekt_id, postep, postep_nowy, wyniki) VALUES (:projekt_id, :postep, :postep_nowy, :wyniki)";
     $stmt = $pdo->prepare($sql);
-    if ($stmt->execute(['projekt_id' => $projekt_id, 'postep' => $postep, 'wyniki' => $wyniki])) {
+    if ($stmt->execute(['projekt_id' => $projekt_id, 'postep' => $postep, 'postep_nowy' => $postep_nowy, 'wyniki' => $wyniki])) {
         echo "<p>Postęp został pomyślnie zaktualizowany!</p>";
     } else {
         echo "<p>Wystąpił błąd podczas aktualizowania postępu.</p>";
@@ -75,24 +76,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Monitorowanie Postępów Badań i Dokumentowanie Wyników</h1>
     <form action="monitor_progress.php" method="post">
-        <label for="projekt_id">Projekt:</label>
-        <select id="projekt_id" name="projekt_id" required>
-            <!-- Poniżej znajdą się opcje dla projektów badawczych pobrane z bazy danych -->
-            <?php
-            $sql = "SELECT id, nazwa FROM projekty_badawcze";
-            foreach ($pdo->query($sql) as $row) {
-                echo '<option value="'.$row['id'].'">'.$row['nazwa'].'</option>';
-            }
-            ?>
-        </select>
+    <label for="projekt_id">Projekt:</label>
+    <select id="projekt_id" name="projekt_id" required>
+        <!-- Poniżej znajdą się opcje dla projektów badawczych pobrane z bazy danych -->
+        <?php
+        $sql = "SELECT id, nazwa FROM projekty_badawcze";
+        foreach ($pdo->query($sql) as $row) {
+            echo '<option value="'.$row['id'].'">'.$row['nazwa'].'</option>';
+        }
+        ?>
+    </select>
 
-        <label for="postep">Postęp:</label>
-        <textarea id="postep" name="postep" rows="5" required></textarea>
+    <label for="postep">Postęp:</label>
+    <textarea id="postep" name="postep" rows="5" required></textarea>
 
-        <label for="wyniki">Wyniki:</label>
-        <textarea id="wyniki" name="wyniki" rows="5" required></textarea>
+    <label for="wyniki">Wyniki:</label>
+    <textarea id="wyniki" name="wyniki" rows="5" required></textarea>
 
-        <input type="submit" value="Zatwierdź">
-    </form>
+    <label for="postep_nowy">Aktualizacja postępu:</label>
+    <input type="number" id="postep_nowy" name="postep_nowy" step="1" required><br><br>
+
+    <input type="submit" value="Zatwierdź">
+</form>
+
 </body>
 </html>
