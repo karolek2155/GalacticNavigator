@@ -26,14 +26,22 @@ require '../config.php';
             width: 80%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
         }
         h1 {
             color: #333;
             text-align: center;
+            margin: 20px auto; /* Wycentrowanie h1 */
+        }
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
         }
         .chart-container {
-            width: 48%; /* Ustawienie szerokości na mniej niż 50% pozwoli na umieszczenie ich obok siebie */
+            width: 48%;
             margin-bottom: 20px;
         }
         .download-button {
@@ -50,14 +58,17 @@ require '../config.php';
 </head>
 <body>
     <div class="content">
-        <div class="chart-container">
-            <canvas id="resourceChart"></canvas>
-            <button class="download-button" onclick="downloadChart('resourceChart', 'zasoby.png')">Pobierz Wykres Zasobów</button>
-        </div>
+        <h1>Przeglądaj zasoby</h1>
+        <div class="charts-container">
+            <div class="chart-container">
+                <canvas id="resourceChart"></canvas>
+                <button class="download-button" onclick="downloadChart('resourceChart', 'zasoby.png')">Pobierz Wykres Zasobów</button>
+            </div>
 
-        <div class="chart-container">
-            <canvas id="resourceChartChanges"></canvas>
-            <button class="download-button" onclick="downloadChart('resourceChartChanges', 'zmiany_zasobow.png')">Pobierz Wykres Zmian Zasobów</button>
+            <div class="chart-container">
+                <canvas id="resourceChartChanges"></canvas>
+                <button class="download-button" onclick="downloadChart('resourceChartChanges', 'zmiany_zasobow.png')">Pobierz Wykres Zmian Zasobów</button>
+            </div>
         </div>
     </div>
     

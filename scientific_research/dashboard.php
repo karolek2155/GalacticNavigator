@@ -32,6 +32,9 @@ try {
   <title>Dashboard Badań Naukowych</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
   <style>
+    body{
+        background-color: #f2f2f2;
+    }
     .container {
       max-width: 800px;
       margin: 0 auto;

@@ -1,18 +1,18 @@
 <?php
-require '../config.php';
+require '../../config.php';
 
-// Skrypt PHP do obsługi dodawania produkcji
+// Skrypt PHP do obsługi dodawania do magazynu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $produkt = $_POST['production-item'];
-    $ilosc = $_POST['production-quantity'];
+    $produkt = $_POST['storage-item'];
+    $ilosc = $_POST['storage-quantity'];
 
-    // Tworzymy zapytanie SQL do dodania nowej produkcji
-    $sql = "INSERT INTO produkcja (produkt, ilosc) VALUES (:produkt, :ilosc)";
+    // Tworzymy zapytanie SQL do dodania nowej pozycji w magazynie
+    $sql = "INSERT INTO magazyn (produkt, ilosc) VALUES (:produkt, :ilosc)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['produkt' => $produkt, 'ilosc' => $ilosc]);
 
-    // Wyświetlamy komunikat po dodaniu produkcji
-    echo "<p>Produkcja została dodana pomyślnie!</p>";
+    // Wyświetlamy komunikat po dodaniu pozycji w magazynie
+    echo "<p>Pozycja została dodana do magazynu pomyślnie!</p>";
 }
 ?>
 
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarządzanie Produkcją</title>
+    <title>Zarządzanie Magazynem</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,15 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <h1>Zarządzanie Produkcją</h1>
-    <form action="manage_production.php" method="post">
-        <label for="production-item">Produkt:</label>
-        <input type="text" id="production-item" name="production-item" required>
+    <h1>Zarządzanie Magazynem</h1>
+    <form action="manage_storage.php" method="post">
+        <label for="storage-item">Produkt:</label>
+        <input type="text" id="storage-item" name="storage-item" required>
 
-        <label for="production-quantity">Ilość:</label>
-        <input type="number" id="production-quantity" name="production-quantity" required>
+        <label for="storage-quantity">Ilość:</label>
+        <input type="number" id="storage-quantity" name="storage-quantity" required>
 
-        <input type="submit" value="Dodaj Produkcję">
+        <input type="submit" value="Dodaj do Magazynu">
     </form>
 </body>
 </html>

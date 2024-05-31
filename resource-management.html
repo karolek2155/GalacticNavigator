@@ -19,8 +19,8 @@
             background-color: #333;
             color: white;
             display: flex;
-            justify-content: space-between; /* Dostosowanie odstępów między elementami */
-            align-items: center; /* Wyrównanie elementów */
+            justify-content: space-between;
+            align-items: center;
             padding: 10px 20px;
         }
         .menu {
@@ -51,9 +51,11 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            overflow: none; /* Umożliwia przewijanie */
             margin: 10px;
             background-color: #fff;
+            max-width: 100%; /* Maksymalna szerokość */
+            max-height: 70vh; /* Maksymalna wysokość */
         }
         iframe {
             width: 100%;
@@ -92,12 +94,11 @@
 
     <div class="menu-container">
         <div class="menu">
-            <a href="#" onclick="loadResource('add_resource.php')">Zarządzanie Zasobami</a>
-            <a href="#" onclick="loadResource('manage_trade.php')">Zarządzanie Handlem</a>
-            <a href="#" onclick="loadResource('manage_production.php')">Zarządzanie Produkcją</a>
-            <a href="#" onclick="loadResource('sector_management.php')">Zarządzanie Sektorami</a>
-            <a href="#" onclick="loadResource('manage_storage.php')">Zarządzanie Magazynem</a>
-            <a href="#" onclick="loadResource('colony_management.php')">Zarządzanie Koloniami</a>
+            <a href="#" onclick="loadResource('add_resource.php');loadTable('view_resources.php')">Zarządzanie Zasobami</a>
+            <a href="#" onclick="loadResource('manage_trade.php');loadTable('view_trade.php')">Zarządzanie Handlem</a>
+            <a href="#" onclick="loadResource('manage_production.php');loadTable('view_production.php')">Zarządzanie Produkcją</a>
+            <a href="#" onclick="loadResource('manage_storage.php');loadTable('view_storage.php')">Zarządzanie Magazynem</a>
+            <a href="#" onclick="loadResource('colony_management.php');loadTable('view_colony.php')">Zarządzanie Koloniami</a>
         </div>
         <a href="index.php" class="button">Strona Główna</a>
     </div>
@@ -105,20 +106,23 @@
     <div class="content">
         <div style="display: flex; flex: 1;">
             <div class="iframe-container" style="flex: 1;">
-                <iframe id="resourceFrame" src="resource_management/add_resource.php" title="Dodaj Zasób"></iframe>
+                <iframe id="resourceFrame" src="resource_management/form/add_resource.php" title="Dodaj Zasób"></iframe>
             </div>
             <div class="iframe-container" style="flex: 1;">
-                <iframe src="resource_management/view_resources.php" title="Wyświetl Zasoby"></iframe>
+                <iframe id="tableFrame" src="resource_management/table/view_resources.php" title="Wyświetl Zasoby"></iframe>
             </div>
         </div>
-        <div class="iframe-container" style="flex: 1;">
+        <div class="iframe-container" heigth="30%" style="flex: 1;">
             <iframe src="resource_management/view_charts.php" title="Wyświetl Zasoby"></iframe>
         </div>
     </div>
 
     <script>
         function loadResource(resource) {
-            document.getElementById('resourceFrame').src = 'resource_management/' + resource;
+            document.getElementById('resourceFrame').src = 'resource_management/form/' + resource;
+        }
+        function loadTable(resource) {
+            document.getElementById('tableFrame').src = 'resource_management/table/' + resource;
         }
     </script>
 

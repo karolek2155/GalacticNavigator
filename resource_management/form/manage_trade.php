@@ -1,5 +1,12 @@
 <?php
-require '../config.php';
+require '../../config.php';
+
+function getOptionsFromDatabase($pdo, $tableName, $valueColumn) {
+    $sql = "SELECT $valueColumn FROM $tableName";
+    $stmt = $pdo->query($sql);
+    $options = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    return $options;
+}
 
 // Skrypt PHP do obsługi handlu zasobami
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -99,9 +106,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h1>Zarządzanie Handlem</h1>
     <form action="manage_trade.php" method="post">
-        <label for="resource">Zasób:</label>
-        <input type="text" id="resource" name="resource" required>
-
+    <label for="resources">Zasoby:</label>
+        <select id="resources" name="resources" required>
+            <?php
+            // Pobierz opcje zasobów z bazy danych
+            $resourceOptions = getOptionsFromDatabase($pdo, 'zasoby', 'nazwa');
+            foreach ($resourceOptions as $option) {
+                echo "<option value='$option'>$option</option>";
+            }
+            ?>
+        </select><br><br>
+        
         <label for="action">Akcja:</label>
         <select id="action" name="action" required>
             <option value="kupno">Kupno</option>
