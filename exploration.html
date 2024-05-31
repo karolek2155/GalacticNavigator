@@ -8,45 +8,117 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
         }
-        h1 {
-            color: #333;
+        .menu-container {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between; /* Dostosowanie odstępów między elementami */
+            align-items: center; /* Wyrównanie elementów */
+            padding: 10px 20px;
+        }
+        .menu {
+            display: flex;
+            margin-left: 20px;
+        }
+        .menu a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 16px;
             text-align: center;
+            border-right: 1px solid #555;
         }
-        .button-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
+        .menu a:last-child {
+            border-right: none;
+        }
+        .button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        .iframe-container {
+            border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            overflow: hidden;
+            margin: 10px;
+            background-color: #fff;
         }
-        .button-container button {
+        iframe {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: #333;
-            color: #fff;
+            height: 100%;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
         }
-        .button-container button:hover {
-            background-color: #555;
+
+        .content {
+            display: flex;
+            flex: 1;
+        }
+
+        @media (min-width: 768px) {
+            .menu-container {
+                flex-direction: row;
+            }
+            .menu {
+                margin-left: 0;
+            }
+            .menu a {
+                border-right: 1px solid #555;
+            }
+            .menu a:last-child {
+                border-right: none;
+            }
+            .content {
+                flex-direction: column;
+            }
+            .iframe-container {
+                margin: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Eksploracja</h1>
-    <div class="button-container">
-        <button onclick="window.location.href='exploration/plan_mission.php'">Zaplanuj misję</button>
-        <button onclick="window.location.href='exploration/register_results.php'">Zarejestruj wyniki misji</button>
-        <button onclick="window.location.href='exploration/report_contact.php'">Zgłoś kontakt z cywilizacją</button>
-        <button onclick="window.location.href='index.php'">Nadchodzące misje</button>
+    <div class="menu-container">
+        <div class="menu">
+            <a href="#" onclick="loadResource('plan_mission.php')">Zaplanuj misję</a>
+            <a href="#" onclick="loadResource('register_results.php')">Zarejestruj wyniki misji</a>
+            <a href="#" onclick="loadResource('report_contact.php')">Zgłoś kontakt z cywilizacją</a>
+            <a href="#" onclick="loadResource('index.php')">Nadchodzące misje</a>
+        </div>
+        <a href="index.php" class="button">Strona Główna</a>
     </div>
+
+    <div class="content">
+        <div style="display: flex; flex: 1;">
+            <div class="iframe-container" style="flex: 1;">
+                <iframe id="resourceFrame" src="exploration/plan_mission.php" title="Dodaj Zasób"></iframe>
+            </div>
+            <!-- <div class="iframe-container" style="flex: 1;">
+                <iframe src="resource_management/view_resources.php" title="Wyświetl Zasoby"></iframe>
+            </div>
+        </div>
+        <div class="iframe-container" style="flex: 1;">
+            <iframe src="resource_management/view_charts.php" title="Wyświetl Zasoby"></iframe>
+        </div> -->
+    </div>
+
+    <script>
+        function loadResource(resource) {
+            document.getElementById('resourceFrame').src = 'exploration/' + resource;
+        }
+    </script>
+
+
 </body>
 </html>
