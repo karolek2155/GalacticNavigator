@@ -1,4 +1,6 @@
-
+<?php
+require 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,65 +132,47 @@
         <a href="manage_relations.php">Zarządzanie relacjami cywilizacyjnymi</a>
         <a href="diplomation.php">Dyplomacja</a>
     </nav>
-    <h2>Zgłoś kontakt</h2>
-    <form method="post" action="">
-
-    <label for="name">Nazwa cywilizacji:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="interakcje">Interakcje:</label>
-        <input type="text" id="interakcje" name="interakcje" required>
-
-        <label for="kultura">Kultura:</label>
-        <input type="text" id="kultura" name="kultura" required>
-
-        <label for="planeta">Planeta:</label>
-        <input type="text" id="planeta" name="planeta" required>
-
-        <label for="nastawienie">Nastawienie (1-10):</label>
-        <input type="number" max="10" id="nastawienie" name="nastawienie" required>
-
-        <label for="technologia">Technologia:</label>
-        <input type="text" id="technologia" name="technologia" required>
-
-        <label for="image">Dodaj grafikę (opcjonalne):</label>
-        <input type="text" id="image" name="image">
-
-        <input type="submit" value="Zgłoś kontakt" name="submit">
+    <h2>Zarządzanie dyplomacją</h2>
+    <form method='post' action=''>
+        <label for="diplomacy_civilization_name">Nazwa cywilizacji:</label>
+        <input type="text" id="diplomacy_civilization_name" name="diplomacy_civilization_name" required>
+        
+        <label for="diplomacy_action">Akcja dyplomatyczna:</label>
+        <select id="diplomacy_action" name="diplomacy_action" required>
+            <option value="sojusz">Sojusz</option>
+            <option value="traktat handlowy">Traktat handlowy</option>
+            <option value="delkaracja wojny">Deklaracja wojny</option>
+        </select>
+        
+        <label for="diplomacy_details">Szczegóły:</label>
+        <input type="text" id="diplomacy_details" name="diplomacy_details" required>
+        
+        <input type="submit" value="Zatwierdź akcję dyplomatyczną" name="diplomacy_submit">
     </form>
     <?php
-    $conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
+    if (isset($_POST['diplomacy_submit'])) {
+            $civilization_name = $_POST['diplomacy_civilization_name'];
+            $action = $_POST['diplomacy_action'];
+            $details = $_POST['diplomacy_details'];
 
-     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['submit'])) {
-        $name = $_POST['name'];   
-        $interakcje = $_POST['interakcje'];
-        $kultura = $_POST['kultura'];
-        $planeta = $_POST['planeta'];
-        $nastawienie = $_POST['nastawienie'];
-        $technologia = $_POST['technologia'];
-        $image = $_POST['image'];
-        
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-    
-        $sql = "INSERT INTO kontakty_cywilizacyjne (cywilizacja, interakcje, kultura, planeta, nastawienie, technologia, grafika) VALUES ('$name', '$interakcje', '$kultura', '$planeta', '$nastawienie', '$technologia', '$image')";
-    
-        if ($conn->query($sql) === TRUE) {
-            echo "<p style='color:green; text-align:center;'>Nowa misja została zaplanowana pomyślnie!</p>";
+            $conn = new mysqli('localhost', 'root', '', 'galacticnavigator');
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "INSERT INTO dyplomacja (cywilizacja, akcja_dyplomatyczna, szczegoly_akcji) VALUES ('$civilization_name', '$action', '$details')";
+
+            if ($conn->query($sql) === TRUE) {
+                echo "<p style='color:green; text-align:center;'>Akcja dyplomatyczna została pomyślnie zarejestrowana!</p>";
+            } else {
+                echo "<p style='color:red; text-align:center;'>Błąd: " . $sql . "<br>" . $conn->error . "</p>";
+            }
+
+            $conn->close();
         } else {
-            echo "<p style='color:red; text-align:center;'>Błąd: " . $sql . "<br>" . $conn->error . "</p>";
+            echo "<p style='color:red; text-align:center;'>Proszę wypełnić wszystkie pola formularza.</p>";
         }
     
-        $conn->close();
-    }
-}
     ?>
-        
-    
-   
-
     <footer>
         <p>&copy; 2024 Galactic Navigator</p>
     </footer>

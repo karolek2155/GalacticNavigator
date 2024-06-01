@@ -130,6 +130,7 @@ require 'config.php';
     <nav>
         <a href="report_contact.php">Zarejestruj kontakt z cywilizacją</a>
         <a href="manage_relations.php">Zarządzanie relacjami cywilizacyjnymi</a>
+        <a href="diplomation.php">Dyplomacja</a>
         
     </nav>
     <h1>Zarządzanie relacjami międzygwiezdnymi</h1>

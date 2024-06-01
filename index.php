@@ -81,7 +81,7 @@ require 'config.php';
        
     </style>
 </head>
-<body style="background-image: url(img/tlo.jpg); background-repeat: no-repeat">
+<body style="background-image: url(img/tlo.jpg)">
     <header>
         <h1>Galactic Navigator</h1>
         <p>Aplikacja do zarządzania zasobami w kosmosie</p>
