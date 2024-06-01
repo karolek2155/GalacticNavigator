@@ -132,18 +132,19 @@ require 'config.php';
         <a href="manage_relations.php">Zarządzanie relacjami cywilizacyjnymi</a>
         
     </nav>
-    <h1>Przeglądaj Projekty Badawcze</h1>
+    <h1>Zarządzanie relacjami międzygwiezdnymi</h1>
     <table>
         <tr>
             <th>Nazwa cywilizacji</th>
             <th>Planeta</th>
-            <th>Polityka</th>
+            <th>Nastawienie(0-10)</th>
             <th>technologia</th>
+            <th>Grafika</th>
             <th>Edytuj</th>
             
         </tr>
         <?php
-        $sql = "SELECT id, cywilizacja, planeta, polityka, technologia FROM kontakty_cywilizacyjne";
+        $sql = "SELECT id, cywilizacja, planeta, nastawienie, technologia, grafika FROM kontakty_cywilizacyjne";
         $stmt = $pdo->query($sql);
         $cywilizacje = $stmt->fetchAll();
 
@@ -151,9 +152,24 @@ require 'config.php';
             echo "<tr>";
             echo "<td>{$a['cywilizacja']}</td>";
             echo "<td>{$a['planeta']}</td>";
-            echo "<td>{$a['polityka']}</td>";
+            //echo "<td>{$a['nastawienie']}</td>";
+            $nastawienie = $a['nastawienie'];
+            if($nastawienie < 3){
+                echo "<td style='color: red'><h3>$nastawienie</h3>(zagrożenie konfliktem!)</td>";
+            }
+            elseif($nastawienie < 5){
+                echo "<td style='color: orange'><h3>$nastawienie</h3></td>";
+            }
+            elseif($nastawienie < 8){
+                echo "<td style='color: yellow'><h3>$nastawienie</h3></td>";
+            }
+            else{
+                echo "<td style='color: green'><h3>$nastawienie</h3></td>";
+            }
             echo "<td>{$a['technologia']}</td>";
-
+            
+            $grafika = $a['grafika'];
+            echo "<td><img src='$grafika' alt='brak grafiki'></td>";
             echo "<td>
                 <p><form action='edit_relations.php' method='post' style='display:inline;'>
                     <input type='hidden' name='id' value='{$a['id']}'>
@@ -164,7 +180,7 @@ require 'config.php';
             echo "</tr>";
         }
         ?>
-        
+
     
    
 

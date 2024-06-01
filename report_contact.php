@@ -145,8 +145,8 @@
         <label for="planeta">Planeta:</label>
         <input type="text" id="planeta" name="planeta" required>
 
-        <label for="polityka">Polityka:</label>
-        <input type="text" id="polityka" name="polityka" required>
+        <label for="nastawienie">Nastawienie (1-10):</label>
+        <input type="number" max="10" id="nastawienie" name="nastawienie" required>
 
         <label for="technologia">Technologia:</label>
         <input type="text" id="technologia" name="technologia" required>
@@ -165,7 +165,7 @@
         $interakcje = $_POST['interakcje'];
         $kultura = $_POST['kultura'];
         $planeta = $_POST['planeta'];
-        $polityka = $_POST['polityka'];
+        $nastawienie = $_POST['nastawienie'];
         $technologia = $_POST['technologia'];
         $image = $_POST['image'];
         
@@ -173,7 +173,7 @@
             die("Connection failed: " . $conn->connect_error);
         }
     
-        $sql = "INSERT INTO kontakty_cywilizacyjne (cywilizacja, interakcje, kultura, planeta, polityka, technologia, grafika) VALUES ('$name', '$interakcje', '$kultura', '$planeta', '$polityka', '$technologia', '$image')";
+        $sql = "INSERT INTO kontakty_cywilizacyjne (cywilizacja, interakcje, kultura, planeta, nastawienie, technologia, grafika) VALUES ('$name', '$interakcje', '$kultura', '$planeta', '$nastawienie', '$technologia', '$image')";
     
         if ($conn->query($sql) === TRUE) {
             echo "<p style='color:green; text-align:center;'>Nowa misja została zaplanowana pomyślnie!</p>";
