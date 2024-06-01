@@ -1,6 +1,7 @@
 <?php
 require '../config.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -23,33 +24,54 @@ require '../config.php';
         }
         .content {
             width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-direction: column;
         }
         h1 {
             color: #333;
             text-align: center;
+            margin: 20px auto; /* Wycentrowanie h1 */
         }
         .charts-container {
             display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
         }
         .chart-container {
-            width: 45%;
+            width: 48%;
+            margin-bottom: 20px;
+        }
+        .download-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <h1>Wykresy Zasobów</h1>
+        <h1>Przeglądaj zasoby</h1>
         <div class="charts-container">
             <div class="chart-container">
                 <canvas id="resourceChart"></canvas>
+                <button class="download-button" onclick="downloadChart('resourceChart', 'zasoby.png')">Pobierz Wykres Zasobów</button>
             </div>
+
             <div class="chart-container">
                 <canvas id="resourceChartChanges"></canvas>
+                <button class="download-button" onclick="downloadChart('resourceChartChanges', 'zmiany_zasobow.png')">Pobierz Wykres Zmian Zasobów</button>
             </div>
         </div>
     </div>
+    
 
     <?php
     // Pobierz dane zasobów
@@ -152,6 +174,25 @@ require '../config.php';
                 }
             }
         });
+
+        // Funkcja do pobierania wykresu jako obrazu
+function downloadChart(chartId, filename) {
+    const canvas = document.getElementById(chartId);
+    
+    // Utwórz obiekt Blob
+    canvas.toBlob(function(blob) {
+        const url = window.URL.createObjectURL(blob);
+
+        // Utwórz link i kliknij go
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = url;
+        link.click();
+
+        // Zwolnij zasoby
+        window.URL.revokeObjectURL(url);
+    });
+}
     </script>
 </body>
 </html>

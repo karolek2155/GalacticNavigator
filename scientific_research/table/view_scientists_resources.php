@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+require '../../config.php';
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@ require '../config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Przeglądaj Zasoby</title>
+    <title>Przeglądaj Zasoby Naukowców</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,7 +29,7 @@ require '../config.php';
         }
         th, td {
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #333;
@@ -55,31 +55,40 @@ require '../config.php';
     </style>
 </head>
 <body>
-    <h1>Przeglądaj Zasoby</h1>
+    <h1>Przeglądaj Zasoby Naukowców</h1>
     <table>
         <tr>
-            <th>Nazwa Zasobu</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Specjalizacja</th>
+            <th>Zasób</th>
             <th>Ilość</th>
             <th>Akcje</th>
         </tr>
         <?php
-        $sql = "SELECT * FROM zasoby";
+        $sql = "SELECT naukowcy.id, naukowcy.imie, naukowcy.nazwisko, naukowcy.specjalizacja, przypisania.zasob, przypisania.ilosc 
+                FROM przypisania 
+                JOIN naukowcy ON przypisania.naukowiec_id = naukowcy.id 
+                JOIN projekty_badawcze ON przypisania.projekt_id = projekty_badawcze.id";
         $stmt = $pdo->query($sql);
-        $zasoby = $stmt->fetchAll();
+        $dane = $stmt->fetchAll();
 
-        foreach ($zasoby as $zasob) {
+        foreach ($dane as $wiersz) {
             echo "<tr>";
-            echo "<td>{$zasob['nazwa']}</td>";
-            echo "<td>{$zasob['ilosc']}</td>";
+            echo "<td>{$wiersz['imie']}</td>";
+            echo "<td>{$wiersz['nazwisko']}</td>";
+            echo "<td>{$wiersz['specjalizacja']}</td>";
+            echo "<td>{$wiersz['zasob']}</td>";
+            echo "<td>{$wiersz['ilosc']}</td>";
             echo "<td>
-                <form action='edit_resource.php' method='post' style='display:inline;'>
-                    <input type='hidden' name='id' value='{$zasob['id']}'>
+                <p><form action='edit_scientist_resource.php' method='post' style='display:inline;'>
+                    <input type='hidden' name='id' value='{$wiersz['id']}'>
                     <input type='submit' value='Edytuj'>
-                </form>
-                <form action='delete_resource.php' method='post' style='display:inline;'>
-                    <input type='hidden' name='id' value='{$zasob['id']}'>
+                </form></p>
+                <p><form action='delete_scientist_resource.php' method='post' style='display:inline;'>
+                    <input type='hidden' name='id' value='{$wiersz['id']}'>
                     <input type='submit' value='Usuń'>
-                </form>
+                </form></p>
             </td>";
             echo "</tr>";
         }
