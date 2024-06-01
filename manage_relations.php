@@ -1,4 +1,6 @@
-
+<?php
+require 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,7 +106,7 @@
             font-size: 16px;
         }
         input[type="submit"] {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             background-color: #333;
             color: #fff;
@@ -130,7 +132,38 @@
         <a href="manage_relations.php">Zarządzanie relacjami cywilizacyjnymi</a>
         
     </nav>
-   
+    <h1>Przeglądaj Projekty Badawcze</h1>
+    <table>
+        <tr>
+            <th>Nazwa cywilizacji</th>
+            <th>Planeta</th>
+            <th>Polityka</th>
+            <th>technologia</th>
+            <th>Edytuj</th>
+            
+        </tr>
+        <?php
+        $sql = "SELECT id, cywilizacja, planeta, polityka, technologia FROM kontakty_cywilizacyjne";
+        $stmt = $pdo->query($sql);
+        $cywilizacje = $stmt->fetchAll();
+
+        foreach ($cywilizacje as $a) {
+            echo "<tr>";
+            echo "<td>{$a['cywilizacja']}</td>";
+            echo "<td>{$a['planeta']}</td>";
+            echo "<td>{$a['polityka']}</td>";
+            echo "<td>{$a['technologia']}</td>";
+
+            echo "<td>
+                <p><form action='edit_relations.php' method='post' style='display:inline;'>
+                    <input type='hidden' name='id' value='{$a['id']}'>
+                    <input type='submit' value='Edytuj'>
+                </form></p>
+                
+            </td>";
+            echo "</tr>";
+        }
+        ?>
         
     
    
