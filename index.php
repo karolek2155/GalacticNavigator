@@ -81,7 +81,7 @@ require 'config.php';
        
     </style>
 </head>
-<body>
+<body style="background-image: url(img/tlo.jpg); background-repeat: no-repeat">
     <header>
         <h1>Galactic Navigator</h1>
         <p>Aplikacja do zarządzania zasobami w kosmosie</p>
@@ -94,7 +94,7 @@ require 'config.php';
         <a href="report_contact.php">Relacje międzygwiezdne</a>
     </nav>
     
-        
+       
     <h2>Nadchodzące misje</h2>
     <table>
         <tr>
@@ -124,7 +124,7 @@ require 'config.php';
         ?>
     </table>
    
-
+    
     <footer>
         <p>&copy; 2024 Galactic Navigator</p>
     </footer>
