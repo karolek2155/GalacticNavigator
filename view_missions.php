@@ -120,7 +120,7 @@ require 'config.php';
             <th>Grafika</th>
         </tr>
         <?php
-        $sql = "SELECT * FROM misje WHERE grafika IS NOT NULL";
+        $sql = "SELECT * FROM misje";
         $stmt = $pdo->query($sql);
         $misje = $stmt->fetchAll();
 
@@ -131,7 +131,7 @@ require 'config.php';
             echo "<td>{$misja['cel']}</td>";
             echo "<td>{$misja['data_startu']}</td>";
             echo "<td>{$misja['zaloga']}</td>";
-            echo "<td><img src='img/$grafika' width = 200px></td>";
+            echo "<td><img src='img/$grafika' alt='Brak grafiki' width = 200px></td>";
            
                 
             echo "</tr>";

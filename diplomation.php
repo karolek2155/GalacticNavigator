@@ -117,11 +117,22 @@ require 'config.php';
         input[type="submit"]:hover {
             background-color: #555;
         }
-       
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: auto;
+            cursor: pointer;
+            width: 140px;
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
     <header>
+        <a href="index.php">
+            <img src="img/logo.png" alt="Logo" style="width: 140px">
+        </a>
         <h1>Galactic Navigator</h1>
         <p>Relacje międzygwiezdne</p>
     </header>

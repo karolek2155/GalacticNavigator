@@ -37,9 +37,7 @@
             padding: 20px;
             text-align: center;
         }
-        h2 {
-            color: #333;
-        }
+    
         p {
             color: white;
             
@@ -54,7 +52,7 @@
             width: 100%;
         }
         h2 {
-            color: #333;
+            color: #fff;
             text-align: center;
         }
         table {
@@ -78,7 +76,7 @@
             background-color: #fff;
         }
         h1 {
-            
+            color: white;
             text-align: center;
         }
         form {
@@ -117,11 +115,23 @@
         input[type="submit"]:hover {
             background-color: #555;
         }
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: auto;
+            cursor: pointer;
+            width: 140px;
+            margin-left: 20px;
+        }
        
     </style>
 </head>
 <body>
     <header>
+        <a href="index.php">
+            <img src="img/logo.png" alt="Logo" style="width: 140px">
+        </a>
         <h1>Galactic Navigator</h1>
         <p>Relacje międzygwiezdne</p>
     </header>

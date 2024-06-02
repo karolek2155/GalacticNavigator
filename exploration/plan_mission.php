@@ -17,6 +17,7 @@
         h1 {
             color: white;
             text-align: center;
+            
         }
         form {
             max-width: 600px;
@@ -25,6 +26,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
         }
         label {
             display: block;
@@ -54,9 +56,16 @@
         input[type="submit"]:hover {
             background-color: #555;
         }
+        a{
+            float: left;
+            position: absolute;
+        }
     </style>
 </head>
 <body>
+        <a href="../index.php">
+            <img src="../img/logo.png" alt="Logo" style="width: 140px">
+        </a>
     <h1>Planowanie Misji</h1>
     <form method="post" action="plan_mission.php">
 

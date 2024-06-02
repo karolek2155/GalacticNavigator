@@ -52,9 +52,16 @@
         input[type="submit"]:hover {
             background-color: #555;
         }
+        a{
+            float: left;
+            position: absolute;
+        }
     </style>
 </head>
 <body>
+        <a href="../index.php">
+            <img src="../img/logo.png" alt="Logo" style="width: 140px">
+        </a>
     <h1>Rejestracja Wyników Misji</h1>
     <form method='post' action='' >
         <label for="mission_name">Nazwa misji:</label>
