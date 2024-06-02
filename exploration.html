@@ -3,106 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploration - Symulator Zarządzania Zasobami w Kosmosie</title>
+    <title>Symulator Zarządzania Zasobami w Kosmosie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f2f2f2;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            box-sizing: border-box;
         }
-        .menu-container {
+        header {
             background-color: #333;
-            color: white;
-            display: flex;
-            justify-content: space-between; /* Dostosowanie odstępów między elementami */
-            align-items: center; /* Wyrównanie elementów */
-            padding: 10px 20px;
-        }
-        .menu {
-            display: flex;
-            margin-left: 20px;
-        }
-        .menu a {
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            font-size: 16px;
+            color: #fff;
+            padding: 20px;
             text-align: center;
-            border-right: 1px solid #555;
+            position: relative; /* Dodane aby obrazek był wewnątrz headera */
         }
-        .menu a:last-child {
-            border-right: none;
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px; /* Możesz dostosować rozmiar */
+            height: auto;
+            cursor: pointer;
+        }
+        nav {
+            background-color: #666;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+        }
+        p {
+            color: #666;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
         }
         .button {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-left: 20px;
-        }
-
-        .iframe-container {
-            border: 1px solid #ccc;
+            width: 300px;
+            height: 50px;
+            margin: 20px 0;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin: 10px;
-            background-color: #fff;
+            border: 2px solid #555;
+            background-color: #444;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .button:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
-        .content {
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #button_div {
             display: flex;
-            flex: 1;
-        }
-
-        @media (min-width: 768px) {
-            .menu-container {
-                flex-direction: row;
-            }
-            .menu {
-                margin-left: 0;
-            }
-            .menu a {
-                border-right: 1px solid #555;
-            }
-            .menu a:last-child {
-                border-right: none;
-            }
-            .content {
-                flex-direction: column;
-            }
-            .iframe-container {
-                margin: 10px;
-            }
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
-<body>
+<body style="background-image: url(img/tlo.jpg)">
+    <header>
+        <a href="index.php">
+            <img src="img/logo.png" alt="Logo" style="width: 140px; margin-left: 20px;">
+        </a>
+        <h1>Galactic Navigator</h1>
+        <p>Aplikacja do zarządzania zasobami w kosmosie</p>
+    </header>
+
+    <nav>
+        <a href="exploration.html">Eksploracja</a>
+        <a href="resource-management.html">Zarządzanie zasobami</a>
+        <a href="scientific-research.html">Badania naukowe</a>
+        <a href="report_contact.php">Relacje międzygwiezdne</a>
+    </nav>
     <h1>Eksploracja</h1>
-    <div class="button-container">
-        <button onclick="window.location.href='exploration/plan_mission.php'">Zaplanuj misję</button>
-        <button onclick="window.location.href='exploration/register_results.php'">Zarejestruj wyniki misji</button>
-        <button onclick="window.location.href='exploration/report_contact.php'">Zgłoś kontakt z cywilizacją</button>
-        <button onclick="window.location.href='index.php'">Nadchodzące misje</button>
+    <div id="button_div">
+        <button class="button" onclick="window.location.href='exploration/plan_mission.php'">Zaplanuj misję</button>
+        <button class="button" onclick="window.location.href='exploration/register_results.php'">Zarejestruj wyniki misji</button>
+        <button class="button" onclick="window.location.href='exploration/report_contact.php'">Zgłoś kontakt z cywilizacją</button>
+        <button class="button" onclick="window.location.href='index.php'">Nadchodzące misje</button>
     </div>
 
-    <script>
-        function loadResource(resource) {
-            document.getElementById('resourceFrame').src = 'exploration/' + resource;
-        }
-    </script>
-
-
+    <footer>
+        <p>&copy; 2024 Galactic Navigator</p>
+    </footer>
 </body>
 </html>
