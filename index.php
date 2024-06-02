@@ -1,6 +1,5 @@
 <?php
 require 'config.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,12 +13,24 @@ require 'config.php';
             margin: 0;
             padding: 0;
             background-color: #f2f2f2;
+            background-image: url('img/tlo.jpg');
+            color: #fff; /* Change the text color to white */
         }
         header {
             background-color: #333;
             color: #fff;
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: auto;
+            cursor: pointer;
+            width: 140px;
+            margin-left: 20px;
         }
         nav {
             background-color: #666;
@@ -38,12 +49,19 @@ require 'config.php';
         section {
             padding: 20px;
             text-align: center;
+            color: #fff; /* Ensure section text is white */
+            max-width: 800px; /* Limit the width of the section */
+            margin: 0 auto; /* Center the section */
+            background-color: rgba(0, 0, 0, 0.7); /* Add background color to the text block */
+            border-radius: 20px; /* Add border radius for rounded corners */
+            margin-top: 50px;
+            
         }
         h2 {
-            color: #333;
+            color: #fff; /* Ensure heading text is white */
         }
         p {
-            color: #666;
+            color: #fff; /* Ensure paragraph text is white */
         }
         footer {
             background-color: #333;
@@ -54,15 +72,11 @@ require 'config.php';
             bottom: 0;
             width: 100%;
         }
-        h2 {
-            color: #333;
-            text-align: center;
-        }
         table {
             width: 70%;
             margin: 20px 0;
             border-collapse: collapse;
-            margin: 20px 15%
+            margin: 20px 15%;
         }
         table, th, td {
             border: 1px solid #ccc;
@@ -77,12 +91,15 @@ require 'config.php';
         }
         td {
             background-color: #fff;
+            color: #000; /* Ensure table data text is readable */
         }
-       
     </style>
 </head>
-<body style="background-image: url(img/tlo.jpg)">
+<body>
     <header>
+        <a href="index.php">
+            <img src="img/logo.png" alt="Logo">
+        </a>
         <h1>Galactic Navigator</h1>
         <p>Aplikacja do zarządzania zasobami w kosmosie</p>
     </header>
@@ -94,36 +111,14 @@ require 'config.php';
         <a href="report_contact.php">Relacje międzygwiezdne</a>
     </nav>
     
-       
-    <h2>Nadchodzące misje</h2>
-    <table>
-        <tr>
-            <th>Tytuł misji</th>
-            <th>Cel</th>
-            <th>Data startu</th>
-            <th>Załoga</th>
-            <th>Grafika</th>
-        </tr>
-        <?php
-        $sql = "SELECT * FROM misje WHERE grafika IS NOT NULL";
-        $stmt = $pdo->query($sql);
-        $misje = $stmt->fetchAll();
-
-        foreach ($misje as $misja) {
-            $grafika = $misja['grafika'];
-            echo "<tr>";
-            echo "<td>{$misja['nazwa']}</td>";
-            echo "<td>{$misja['cel']}</td>";
-            echo "<td>{$misja['data_startu']}</td>";
-            echo "<td>{$misja['zaloga']}</td>";
-            echo "<td><img src='img/$grafika' width = 200px></td>";
-           
-                
-            echo "</tr>";
-        }
-        ?>
-    </table>
-   
+    <section>
+        <h2>Witamy w Galactic Navigator!</h2>
+        <p>Galactic Navigator to zaawansowana aplikacja webowa umożliwiająca zarządzanie koloniami kosmicznymi. Nasza platforma oferuje szeroki wachlarz funkcjonalności, które pozwolą Ci na eksplorację nowych planet, zarządzanie zasobami, prowadzenie badań naukowych oraz utrzymywanie relacji międzygwiezdnych.</p>
+        
+        <p>Planuj i zarządzaj misjami eksploracyjnymi, odkrywaj nowe światy, rejestruj cenne surowce oraz dokumentuj kontakty z nowymi cywilizacjami. Monitoruj i optymalizuj stan zasobów, zarządzaj produkcją, magazynowaniem i handlem. Twórz i rozwijaj projekty badawcze, przypisuj naukowców i zasoby do badań oraz śledź postępy w różnych dziedzinach nauki. Zarządzaj dyplomacją, nawiązuj sojusze, zawieraj traktaty handlowe i podejmuj strategiczne decyzje wojenne.</p>
+        
+        <p>Skorzystaj z interaktywnych dashboardów, które wizualizują odkrycia, stany zasobów, postępy badań oraz relacje międzygwiezdne, aby skutecznie zarządzać swoim kosmicznym imperium.</p>
+    </section>
     
     <footer>
         <p>&copy; 2024 Galactic Navigator</p>

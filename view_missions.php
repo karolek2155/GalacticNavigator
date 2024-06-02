@@ -1,3 +1,7 @@
+<?php
+require 'config.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,21 +14,24 @@
             margin: 0;
             padding: 0;
             background-color: #f2f2f2;
+            background-image: url('img/tlo.jpg')
         }
         header {
             background-color: #333;
             color: #fff;
             padding: 20px;
             text-align: center;
-            position: relative; /* Dodane aby obrazek był wewnątrz headera */
+            position: relative;
         }
         header img {
             position: absolute;
             top: 10px;
             left: 10px;
-            width: 50px; /* Możesz dostosować rozmiar */
+            
             height: auto;
             cursor: pointer;
+            width: 140px; 
+            margin-left: 20px;
         }
         nav {
             background-color: #666;
@@ -44,9 +51,8 @@
             padding: 20px;
             text-align: center;
         }
-        h1 {
-            color: white;
-            text-align: center;
+        h2 {
+            color: #333;
         }
         p {
             color: #666;
@@ -61,43 +67,36 @@
             width: 100%;
         }
         h2 {
-            color: #333;
+            color: white;
             text-align: center;
         }
-        .button {
-            width: 300px;
-            height: 50px;
+        table {
+            width: 70%;
             margin: 20px 0;
-            border-radius: 10px;
-            border: 2px solid #555;
-            background-color: #444;
+            border-collapse: collapse;
+            margin: 20px 15%
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #333;
             color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
-        .button:hover {
-            background-color: #555;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        td {
+            background-color: #fff;
         }
-        .button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        #button_div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+       
     </style>
 </head>
-<body style="background-image: url(img/tlo.jpg)">
+<body>
     <header>
         <a href="index.php">
-            <img src="img/logo.png" alt="Logo" style="width: 140px; margin-left: 20px;">
+            <img src="img/logo.png" alt="Logo">
         </a>
         <h1>Galactic Navigator</h1>
         <p>Aplikacja do zarządzania zasobami w kosmosie</p>
@@ -109,14 +108,38 @@
         <a href="scientific-research.html">Badania naukowe</a>
         <a href="report_contact.php">Relacje międzygwiezdne</a>
     </nav>
-    <h1>Eksploracja</h1>
-    <div id="button_div">
-        <button class="button" onclick="window.location.href='exploration/plan_mission.php'">Zaplanuj misję</button>
-        <button class="button" onclick="window.location.href='exploration/register_results.php'">Zarejestruj wyniki misji</button>
-        <button class="button" onclick="window.location.href='report_contact.php'">Zgłoś kontakt z cywilizacją</button>
-        <button class="button" onclick="window.location.href='view_missions.php'">Nadchodzące misje</button>
-    </div>
+    
+       
+    <h2>Nadchodzące misje</h2>
+    <table>
+        <tr>
+            <th>Tytuł misji</th>
+            <th>Cel</th>
+            <th>Data startu</th>
+            <th>Załoga</th>
+            <th>Grafika</th>
+        </tr>
+        <?php
+        $sql = "SELECT * FROM misje WHERE grafika IS NOT NULL";
+        $stmt = $pdo->query($sql);
+        $misje = $stmt->fetchAll();
 
+        foreach ($misje as $misja) {
+            $grafika = $misja['grafika'];
+            echo "<tr>";
+            echo "<td>{$misja['nazwa']}</td>";
+            echo "<td>{$misja['cel']}</td>";
+            echo "<td>{$misja['data_startu']}</td>";
+            echo "<td>{$misja['zaloga']}</td>";
+            echo "<td><img src='img/$grafika' width = 200px></td>";
+           
+                
+            echo "</tr>";
+        }
+        ?>
+    </table>
+   
+    
     <footer>
         <p>&copy; 2024 Galactic Navigator</p>
     </footer>

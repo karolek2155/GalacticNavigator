@@ -11,10 +11,11 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f2f2f2;
+            background-image: url('../img/tlo.jpg');
+            
         }
         h1 {
-            color: #333;
+            color: white;
             text-align: center;
         }
         form {

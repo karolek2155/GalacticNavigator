@@ -12,7 +12,7 @@ require 'config.php';
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-image: url('img/tlo.jpg')
         }
         header {
             background-color: #333;
@@ -38,9 +38,8 @@ require 'config.php';
             padding: 20px;
             text-align: center;
         }
-        h2 {
-            color: #333;
-        }
+        
+        
         p {
             color: white;
             
@@ -55,7 +54,7 @@ require 'config.php';
             width: 100%;
         }
         h2 {
-            color: #333;
+            color: #fff;
             text-align: center;
         }
         table {
@@ -79,7 +78,7 @@ require 'config.php';
             background-color: #fff;
         }
         h1 {
-            
+            color: white;
             text-align: center;
         }
         form {
